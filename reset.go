@@ -9,7 +9,7 @@ func (cfg *apiConfig) handlerHitCountReset(w http.ResponseWriter, r *http.Reques
 		return
 	}
 	cfg.fileserverHits.Store(0)
-	cfg.db.DeleteUers(r.Context())
+	cfg.db.DeleteUsers(r.Context())
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte("Hits reset to 0 and database reset to initial state"))
 }

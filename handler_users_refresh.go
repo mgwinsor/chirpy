@@ -18,7 +18,6 @@ func (cfg *apiConfig) handlerRefreshUser(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	// TODO: There is a problem with revoking... timestamp or similar
 	user, err := cfg.db.GetUserFromRefreshToken(r.Context(), refreshToken)
 	if err != nil {
 		respondWithError(w, http.StatusUnauthorized, "Could not get user for refresh token", err)
