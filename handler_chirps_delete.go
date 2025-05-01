@@ -8,11 +8,10 @@ import (
 )
 
 func (cfg *apiConfig) handlerChirpsDelete(w http.ResponseWriter, r *http.Request) {
-	type parameters struct {
-		Body string `json:"body"`
-	}
-	type returnVals struct {
-		Chirp
+	chirpID, err := uuid.Parse(r.PathValue("chirpID"))
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid chirp ID", err)
+		return
 	}
 
 	token, err := auth.GetBearerToken(r.Header)
@@ -26,19 +25,13 @@ func (cfg *apiConfig) handlerChirpsDelete(w http.ResponseWriter, r *http.Request
 		return
 	}
 
-	chirpID, err := uuid.Parse(r.PathValue("chirpID"))
-	if err != nil {
-		respondWithError(w, http.StatusBadRequest, "Invalid chirp ID", err)
-		return
-	}
-
-	chirpDB, err := cfg.db.GetChirp(r.Context(), chirpID)
+	dbChirp, err := cfg.db.GetChirp(r.Context(), chirpID)
 	if err != nil {
 		respondWithError(w, http.StatusNotFound, "Could not find chirp for deletion", err)
 		return
 	}
 
-	if userID != chirpDB.UserID {
+	if userID != dbChirp.UserID {
 		respondWithError(w, http.StatusForbidden, "Unauthorized chirp deletion", err)
 		return
 	}
