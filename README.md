@@ -39,12 +39,17 @@ defined:
 
 There are different endpoints available:
 
-- `/api/healthz` ([GET](./docs/api_endpoints.md#GET-apihealthz))
-- `/api/polka/webhooks` ([POST](./docs/api_endpoints.md))
-- `/api/chirps`
-- `/api/users`
-- `/api/login`
-- `/api/refresh`
-- `/api/revoke`
-- `/admin/metrics`
-- `/admin/reset`
+- `/api/healthz` ([GET](./docs/api_endpoints.md#get-apihealthz))
+- `/api/polka/webhooks` ([POST](./docs/api_endpoints.md/post-apipolkawebhooks))
+- `/api/chirps` ([POST](./docs/api_endpoints.md/post-apichirps),
+[GET](./docs/api_endpoints.md/get-apichirps),
+[GET](./docs/api_endpoints.md#get-apichirpschirpid),
+[DELETE](./docs/api_endpoints.md#delete-apichirpschirpid))
+- `/api/users` ([POST](./docs/api_endpoints.md#post-apiusers),
+[PUT](./docs/api_endpoints.md#put-apiusers))
+- `/api/login` ([PUT](./docs/api_endpoints.md#post-apilogin),
+[POST](./docs/api_endpoints.md#put-apilogin))
+- `/api/refresh` ([POST](./docs/api_endpoints.md#post-apirefresh))
+- `/api/revoke` ([POST](./docs/api_endpoints.md#post-apirevoke))
+- `/admin/metrics` ([GET](./docs/api_endpoints.md#get-apimetrics))
+- `/admin/reset` ([GET](./docs/api_endpoints.md#get-apireset))
