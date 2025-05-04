@@ -1,6 +1,6 @@
 # API Endpoints
 
-## `GET /api/healthz`
+## GET /api/healthz
 
 ### Description
 
