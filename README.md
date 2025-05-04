@@ -39,7 +39,7 @@ defined:
 
 There are different endpoints available:
 
-- `/api/healthz` ([GET](./docs/api_endpoints.md#GET_/api/healthz))
+- `/api/healthz` ([GET](./docs/api_endpoints.md#GET-apihealthz))
 - `/api/polka/webhooks` ([POST](./docs/api_endpoints.md))
 - `/api/chirps`
 - `/api/users`
