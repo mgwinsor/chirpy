@@ -2,8 +2,8 @@ package main
 
 import "net/http"
 
-func HandlerReadiness(res http.ResponseWriter, req *http.Request) {
-	res.Header().Add("Content-Type", "text/plain; charset=utf-8")
-	res.WriteHeader(http.StatusOK)
-	res.Write([]byte("OK"))
+func handlerReadiness(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-Type", "text/plain; charset=utf-8")
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(http.StatusText(http.StatusOK)))
 }
