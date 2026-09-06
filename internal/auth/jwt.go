@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"errors"
 	"fmt"
 	"time"
 
@@ -27,29 +26,18 @@ func MakeJWT(userID uuid.UUID, tokenSecret string, expiresIn time.Duration) (str
 
 func ValidateJWT(tokenString, tokenSecret string) (uuid.UUID, error) {
 	claims := &jwt.RegisteredClaims{}
-	token, err := jwt.ParseWithClaims(
+	_, err := jwt.ParseWithClaims(
 		tokenString,
 		claims,
 		func(t *jwt.Token) (any, error) { return []byte(tokenSecret), nil },
+		jwt.WithIssuer(string(TokenTypeAccess)),
+		jwt.WithValidMethods([]string{jwt.SigningMethodHS256.Alg()}),
 	)
 	if err != nil {
 		return uuid.Nil, err
 	}
 
-	userIDString, err := token.Claims.GetSubject()
-	if err != nil {
-		return uuid.Nil, err
-	}
-
-	issuer, err := token.Claims.GetIssuer()
-	if err != nil {
-		return uuid.Nil, err
-	}
-	if issuer != string(TokenTypeAccess) {
-		return uuid.Nil, errors.New("invalid issuer")
-	}
-
-	id, err := uuid.Parse(userIDString)
+	id, err := uuid.Parse(claims.Subject)
 	if err != nil {
 		return uuid.Nil, fmt.Errorf("invalid user ID: %w", err)
 	}
